@@ -25,7 +25,7 @@ private:
     vector <Vertice> vertexArr;
 
 public:
-    Vertice** head;
+    Vertice** tail;
 
     // constructor
     TheGraph(int noVer, vector <Edge>edgeMap, int noEdges, vector<string> gates){ 
