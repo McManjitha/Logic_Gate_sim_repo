@@ -23,4 +23,14 @@ private:
     int startVert; // stating vertice of the edge
     int endVert; // ending vertice of the edge
     vector <Vertice> vertexArr;
+
+public:
+    Vertice** head;
+
+    // constructor
+    TheGraph(int noVer, vector <Edge>edgeMap, int noEdges, vector<string> gates){ 
+        // create a array of pointers
+        head = new Vertice*[noVer]();
+        this->noVert = noVer;
+        string gateArr[noVer];
 };
