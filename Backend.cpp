@@ -48,7 +48,7 @@ public:
         // assigning the all the pointers in the array to NULL
             head[i] = NULL; 
             gateArr[i] = gates[i];
-            Vertice temporary;
+            Vertice temp;
             temp.index = i;
             temp.gateType = gateArr[i];
             vertexArr.push_back(temp);
