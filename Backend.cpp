@@ -24,8 +24,17 @@ private:
     int endVert; // ending vertice of the edge
     vector <Vertice> vertexArr;
 
+    Vertice* getAdjNode(int value, Vertice* head, string gate){
+        Vertice* newVertice = new Vertice;
+        newVertice->index = value;
+        newVertice->output = NULL;
+        newVertice->next = head;
+        newVertice->gateType = gate;
+        return newVertice;
+    }
+
 public:
-    Vertice** tail;
+    Vertice** head;
 
     // constructor
     TheGraph(int noVer, vector <Edge>edgeMap, int noEdges, vector<string> gates){ 
@@ -33,4 +42,15 @@ public:
         head = new Vertice*[noVer]();
         this->noVert = noVer;
         string gateArr[noVer];
+    }
+
+    for(int i = 0; i < noVer; i++){
+        // assigning the all the pointers in the array to NULL
+            head[i] = NULL; 
+            gateArr[i] = gates[i];
+            Vertice temp;
+            temp.index = i;
+            temp.gateType = gateArr[i];
+            vertexArr.push_back(temp);
+    }
 };
