@@ -125,4 +125,37 @@ public:
         }
         return result;
     }
+
+    // recursive function that travels through the graph and returns the output
+    bool getOutput(Vertice* ptr, int index){
+        // if(ptr == NULL){
+        //     cout<<"NULL"<<endl;
+        // }
+        bool output;
+        if(index == -1){
+            return true;
+        }else if(index == -2){
+            return false;
+        }
+        else{
+            string gateName = vertexArr[index].gateType; 
+            vector <bool> signals;
+            while(ptr != NULL){
+                bool s = getOutput(head[ptr->index], ptr->index);
+                signals.push_back(s);
+                ptr = ptr->next;
+            }
+            
+            if(gateName == "AND"){
+                return ANDgate(signals);
+            }else if(gateName == "OR"){
+                return ORgate(signals);
+            }else if(gateName == "NOT"){
+                return NOTgate(signals); 
+            }else if(gateName == "XOR"){
+                return XORgate(signals);
+            }
+            signals.clear();
+        }       
+    }
 };
