@@ -159,3 +159,62 @@ public:
         }       
     }
 };
+
+int main(){
+    fstream inputFile;
+    string line;
+    //string gateName;
+    vector <string> gates;
+    //vector <vector <int>> edges;
+    vector <int> trueInputs;
+    vector <int> falseInputs;
+    string temp = "";
+
+    vector<Edge> eMap;
+
+    // *************************************************************************************************
+    // open the file
+    inputFile.open("gui_output.txt", ios::in);
+
+     if(inputFile.is_open()){
+
+        // reading names of gates____________________________________________
+        getline(inputFile, line);
+        for(int i = 2; i < line.size(); i++){
+
+            // check for a uppercase letter
+            if((int)line[i] > 64 && (int)line[i] < 91){
+                temp = temp + line[i];
+
+            }else if((int)line[i] == 39 && temp.size() > 1){
+                gates.push_back(temp);
+                temp = "";
+            }
+        }
+
+        // reading the edge list size
+        //int edgeSize;
+        //getline(inputFile, line);
+        //edgeSize = stoi(line);
+
+        //reading the edge_______________________________________
+        getline(inputFile, line);
+        int tempNo = 0;
+        Edge ob1;
+        bool get = false;
+        vector <int> total_nums;
+
+        for(int i = 2; i < line.size(); i++){
+
+            // check for a number
+            if((int)line[i] > 47 && (int)line[i] < 58){
+                tempNo = tempNo*10 + ((int)line[i] - 48);
+                get = true;
+
+            }else if(get){
+                total_nums.push_back(tempNo);
+                tempNo = 0;
+                get = false;
+            }
+        }
+}
