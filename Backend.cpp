@@ -1,5 +1,7 @@
 #include<iostream>
+#include<string>
 #include<vector>
+#include<fstream>
 using namespace std;
 
 
@@ -160,6 +162,16 @@ public:
     }
 };
 
+//displaying the adjcency list
+void displayGraph(Vertice* ptr, int k){
+    cout<<k<<" --> ";
+    while(ptr != NULL){
+        cout<<ptr->index<<",";
+        ptr = ptr->next;
+    }
+    cout<<endl;
+} 
+
 int main(){
     fstream inputFile;
     string line;
@@ -217,4 +229,73 @@ int main(){
                 get = false;
             }
         }
+        cout<<endl;
+        for(int i = 0; i < total_nums.size(); i = i+2){
+            ob1.startVertice = total_nums[i];
+            ob1.endVertice = total_nums[i+1];
+            eMap.push_back(ob1);
+            //cout<<"eMap size = "<<eMap.size() <<endl;
+        }
+
+        //getting true list________________________________
+        getline(inputFile, line);
+        get = false;
+        for(int i = 0; i < line.size(); i++){
+            if((int)line[i] > 47 && (int)line[i] < 58){
+                tempNo = tempNo*10 + ((int)line[i] - 48);
+                get = true;
+
+            }else if(get == true){
+                trueInputs.push_back(tempNo);
+                get = false;
+                tempNo = 0;
+            }
+        }
+
+        //getting false list_____________________________________________
+        getline(inputFile, line);
+        get = false;
+        for(int i = 0; i < line.size(); i++){
+            if((int)line[i] > 47 && (int)line[i] < 58){
+                tempNo = tempNo*10 + ((int)line[i] - 48);
+                get = true;
+
+            }else if(get == true){
+                falseInputs.push_back(tempNo);
+                get = false;
+                tempNo = 0;
+            }
+        }
+    } 
+    inputFile.close();
+
+    //**************************************************************************************************
+
+    int noEdges = eMap.size();
+
+    //vector <string> gates;
+    int outputNode = gates.size() - 1; // user input
+
+    int gateCount = gates.size(); // user input
+
+    TheGraph g1 = TheGraph(gateCount, eMap, noEdges, gates);
+
+    g1.settingInputs(trueInputs, -1, trueInputs.size(), true);
+    g1.settingInputs(falseInputs, -2, falseInputs.size(), false);
+
+    Vertice* tail = g1.head[outputNode];
+
+    int out = g1.getOutput(tail, outputNode);
+
+    cout<<"out = "<<out<<endl;
+    ofstream outputFile;
+    outputFile.open("ouputFile.txt", ios::out);
+    //string str = to_string(out);
+    outputFile<<out;
+
+    for(int i = 0; i < gateCount; i++){
+        displayGraph(g1.head[i], i);
+    }
+
+    outputFile.close();
 }
